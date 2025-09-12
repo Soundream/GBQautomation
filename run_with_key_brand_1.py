@@ -7,7 +7,7 @@ from pathlib import Path
 with Path('apikey.txt').open('r') as f:
     API_KEY = f.read().strip()
 
-# Date range (TODO: adjust as needed)
+# Date range (no need to adjust in GBQautomation)
 START_DATE = "2025-03"
 END_DATE = "2025-06"
 

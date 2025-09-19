@@ -7,7 +7,13 @@
 # Only supports legacy SQL mode and country parameter filling
 
 from google.cloud import bigquery
-from auth import BigQueryAuth
+import sys
+import os
+
+# Add parent directory to path to allow imports from sibling modules
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from auth_credential.auth import BigQueryAuth
 
 # Initialize authentication
 print("Setting up BigQuery authentication...")

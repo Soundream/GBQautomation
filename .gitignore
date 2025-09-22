@@ -1,13 +1,22 @@
 # Gcloud credentials (handled automatically)
 # No manual credential files needed
 
-# API key files
-apikey.txt
+# API key files in any folder
+**/apikey.txt
 
-# Output files
+# Output
 *.csv
-output/
-twbx/
+output/**
+!output/csv/.gitkeep
+!output/twbx/.gitkeep
+
+# Tableau files
+*.twbx
+tableau_processor/tableau_files/**
+!tableau_processor/tableau_files/templates/.gitkeep
+!tableau_processor/tableau_files/temporary/.gitkeep
+tableau_processor/twbx/**
+!tableau_processor/twbx/.gitkeep
 
 # Python
 __pycache__/

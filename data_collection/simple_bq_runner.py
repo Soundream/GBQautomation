@@ -1,10 +1,11 @@
-# This is not prepared for tableau, 
-# but for retrieving data for the competitive benchmarking deck page 7
+# This script is not designed for Tableau,
+# but for retrieving data for the Competitive Benchmarking deck (page 7).
+# It can also be reused to retrieve data in other loops as needed.
 
 
 #!/usr/bin/env python
 # Lightweight BigQuery query tool
-# Only supports legacy SQL mode and country parameter filling
+# Only supports legacy SQL mode (or you can change) and country parameter filling
 
 from google.cloud import bigquery
 import sys
@@ -37,7 +38,7 @@ def run_simple_query(country):
     # SQL template (legacy mode)
     #   Marketplace: company_type in ('Meta',)
     #   Online Travel: company_type in ('Meta', 'OTA')
-    #       Note: you have to change 2 places in the sql template
+    #       Note: you have to change 2 places in the sql template that contain the "set" of company_type
     sql_template = """
     SELECT 
       company,
@@ -66,7 +67,7 @@ def run_simple_query(country):
     print(f"\nExecuting query: country={country}")
     
     # Set legacy SQL mode
-    job_config = bigquery.QueryJobConfig(use_legacy_sql=True)
+    job_config = bigquery.QueryJobConfig(use_legacy_sql=True)  # Change to False if you want to use standard SQL mode
     
     try:
         # Execute query
@@ -100,6 +101,7 @@ def run_simple_query(country):
 if __name__ == "__main__":
     # only support MENA countries
     for country in ["Saudi Arabia", "Kuwait", "United Arab Emirates", "Bahrain", "Qatar", 
-    "Oman", "Egypt", "Algeria", "Jordan", "Lebanon"]:
+                    "Oman", "Egypt", "Algeria", "Jordan", "Lebanon", "Morocco"]:
 
-        run_simple_query(country)
+        # Note that it will not save any csv file, just print the results
+        run_simple_query(country) 

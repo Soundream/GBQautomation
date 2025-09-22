@@ -11,7 +11,6 @@ Tool for executing multiple BigQuery queries and saving results to organized CSV
 
 import csv
 import json
-import importlib.util
 from datetime import datetime
 from pathlib import Path
 import sys
@@ -27,6 +26,11 @@ from data_collection.sql_processor import load_query_template, get_date_params_b
 
 # Import key brand modules as a package
 from data_collection.key_brand_scripts import key_brand_1, key_brand_2, key_brand_3
+
+
+# Global configuration
+OUTPUT_DIR = "output/csv"
+
 
 class QueryRunner:
     def __init__(self):
@@ -177,8 +181,7 @@ def main():
     print("\n✓ Authentication successful!\n")
     
     # Create output directory
-    output_dir = "output"
-    Path(output_dir).mkdir(exist_ok=True)
+    Path(OUTPUT_DIR).mkdir(parents=True, exist_ok=True)
     
     # Track successful and failed queries
     results = {
@@ -189,7 +192,7 @@ def main():
     # Process each folder with nested progress bars
     for folder_config in tqdm(config.get('folders', []), desc="Processing folders"):
         folder_name = folder_config.get('name', 'Unknown')
-        folder_path = Path(output_dir) / folder_config.get('folder', 'default')
+        folder_path = Path(OUTPUT_DIR) / folder_config.get('folder', 'default')
         
         # Create folder if it doesn't exist
         folder_path.mkdir(parents=True, exist_ok=True)
@@ -306,7 +309,7 @@ def main():
     end_str = f"{end_year}-{months[end_month]}"
     
     # Find the key_brands folder path
-    key_brands_folder = Path("output/key_brands")
+    key_brands_folder = Path(OUTPUT_DIR) / "key_brands"
     key_brands_folder.mkdir(parents=True, exist_ok=True)  # create the key_brands folder if it doesn't exist
 
 

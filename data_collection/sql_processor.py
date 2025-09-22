@@ -5,7 +5,7 @@ Module for handling SQL templates and parameter substitution.
 """
 
 from pathlib import Path
-from datetime import datetime, timedelta
+from datetime import datetime
 
 def load_query_template(template_path, params):
     """

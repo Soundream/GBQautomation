@@ -7,15 +7,22 @@
 # Output
 *.csv
 output/**
+!output/
+!output/csv/
 !output/csv/.gitkeep
+!output/twbx/
 !output/twbx/.gitkeep
 
 # Tableau files
 *.twbx
 tableau_processor/tableau_files/**
+!tableau_processor/tableau_files/
+!tableau_processor/tableau_files/templates/
 !tableau_processor/tableau_files/templates/.gitkeep
+!tableau_processor/tableau_files/temporary/
 !tableau_processor/tableau_files/temporary/.gitkeep
 tableau_processor/twbx/**
+!tableau_processor/twbx/
 !tableau_processor/twbx/.gitkeep
 
 # Python

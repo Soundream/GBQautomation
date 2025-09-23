@@ -100,7 +100,7 @@
         },
         {
             "name": "ShopCash-Ecommerce Key Markets Reports",
-            "folder": "shopcash_markets",
+            "folder": "shopcash",
             "queries": [
                 {
                     "name": "ShopCash AppAnnie Tableau Report",

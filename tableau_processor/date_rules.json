@@ -1,0 +1,17 @@
+{
+  "date": {
+    "key_brands": ["appannie_app_ratings", "web_traffic", "appannie_tableau_report", "similarweb_tableau_report"],
+    "market_share": ["appannie", "similarweb", "web_traffic"],
+    "shopcash": ["appannie_tableau_report", "similarweb_tableau_report"]
+  },
+  "report_date": {
+    "key_brands": ["appannie_app_ratings"],
+    "market_share": [],
+    "shopcash": ["appannie_app_ratings"]
+  },
+  "month": {
+    "key_brands": [],
+    "market_share": [],
+    "shopcash": []
+  }
+}

@@ -12,6 +12,8 @@ output/**
 !output/csv/.gitkeep
 !output/twbx/
 !output/twbx/.gitkeep
+!output/hyper/
+!output/hyper/.gitkeep
 
 # Tableau files
 *.twbx
@@ -21,9 +23,10 @@ tableau_processor/tableau_files/**
 !tableau_processor/tableau_files/templates/.gitkeep
 !tableau_processor/tableau_files/temporary/
 !tableau_processor/tableau_files/temporary/.gitkeep
-tableau_processor/twbx/**
-!tableau_processor/twbx/
-!tableau_processor/twbx/.gitkeep
+tableau_processor/xml_of_twbx/**
+!tableau_processor/xml_of_twbx/
+!tableau_processor/xml_of_twbx/__init__.py
+!tableau_processor/xml_of_twbx/twbx2xml.py
 
 # Python
 __pycache__/

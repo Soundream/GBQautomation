@@ -11,25 +11,45 @@ Tool for executing multiple BigQuery queries and saving results to organized CSV
 
 import csv
 import json
+import shutil
 from datetime import datetime
 from pathlib import Path
-import sys
 import os
-
-# Add parent directory to path to allow imports from sibling modules
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
 from google.cloud import bigquery
 from tqdm import tqdm
+
+# Import .py files as packages
 from auth_credential.auth import BigQueryAuth
 from data_collection.sql_processor import load_query_template, get_date_params_by_template
-
-# Import key brand modules as a package
 from data_collection.key_brand_scripts import key_brand_1, key_brand_2, key_brand_3
 
 
 # Global configuration
-OUTPUT_DIR = "output/csv"
+OUTPUT_DIR = "output/csv"  # Note: working folder must be GBQAutomation
+# Define subfolder names
+SUBFOLDERS = ["key_brands", "market_share", "shopcash"]
+
+
+def clean_output_directories():
+    """
+    Clean the output directories by removing the contents of the three specific subfolders.
+    Preserves the main output directory and any .gitkeep files.
+    """
+    # Make sure the main output directory exists
+    output_dir = Path(OUTPUT_DIR)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Clean each subfolder
+    for folder in SUBFOLDERS:
+        folder_path = output_dir / folder
+        if folder_path.exists():
+            # Remove all files in the folder except .gitkeep
+            for item in folder_path.glob("*"):
+                if item.is_file() and item.name != ".gitkeep":
+                    os.remove(item)
+                elif item.is_dir():
+                    shutil.rmtree(item)
+            print(f"Cleaned directory: {folder_path}")
 
 
 class QueryRunner:
@@ -158,6 +178,10 @@ def main():
     """
     Main function to run multiple BigQuery queries based on JSON configuration.
     """
+
+    # First, clean the output directories
+    print("\n=== Cleaning Output Directories ===")
+    clean_output_directories()
 
     # Load query configurations from JSON
     try:

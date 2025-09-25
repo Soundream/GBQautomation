@@ -15,6 +15,9 @@ output/**
 !output/hyper/
 !output/hyper/.gitkeep
 
+# Hyper log files
+tableau_processor/hyperd.log
+
 # Tableau files
 *.twbx
 tableau_processor/tableau_files/**

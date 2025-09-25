@@ -4,6 +4,7 @@ CSV to Hyper File Converter
 
 Convert CSV files to Tableau Hyper format using Tableau Hyper API.
 Supports reading from directory structure and mapping data types according to rules.
+Optimized for performance with batch processing and single Hyper service.
 """
 
 import os
@@ -11,6 +12,7 @@ import json
 import shutil
 import pandas as pd
 from pathlib import Path
+from tqdm import tqdm
 from tableauhyperapi import HyperProcess, Connection, SqlType, TableDefinition, Inserter, CreateMode
 
 # Global constants for directory structure
@@ -20,17 +22,16 @@ SUBFOLDERS = ["key_brands", "market_share", "shopcash"]
 RULES_PATH = "tableau_processor/date_rules.json"
 
 
-def convert_datatype_to_hyper_type(column_name, value, dtype):
+def convert_datatype_to_hyper_type(column_name, dtype):
     """
-    转换数据类型到Hyper API兼容类型
+    Convert pandas datatype to Hyper API compatible type
     
-    参数:
-        column_name: 列名
-        value: 列值
-        dtype: pandas数据类型
+    Args:
+        column_name: Column name
+        dtype: pandas datatype
         
-    返回:
-        TableDefinition.Column对象
+    Returns:
+        TableDefinition.Column object
     """
     if pd.api.types.is_integer_dtype(dtype):
         return TableDefinition.Column(column_name, SqlType.big_int())
@@ -44,20 +45,50 @@ def convert_datatype_to_hyper_type(column_name, value, dtype):
         return TableDefinition.Column(column_name, SqlType.text())
 
 
+def find_date_columns_for_file(df, rules, folder, file_name):
+    """
+    Identify columns that should be converted to date format based on rules
+    
+    Args:
+        df: DataFrame with data
+        rules: Dictionary of date field rules
+        folder: Current folder being processed
+        file_name: Name of the file being processed
+        
+    Returns:
+        tuple of (list of columns to convert, list of messages about conversions)
+    """
+    date_columns = []
+    messages = []
+    
+    # Identify columns to be converted to dates
+    for col in df.columns:
+        for rule_col, folder_rules in rules.items():
+            if col == rule_col and folder in folder_rules:
+                # Check if the file name matches any pattern in the rules
+                for file_pattern in folder_rules[folder]:
+                    if file_pattern in file_name:
+                        date_columns.append(col)
+                        messages.append(f"Converting column '{col}' to date format (file: {file_name})")
+                        break
+    
+    return date_columns, messages
+
+
 def process_csv_directory(rules_path=RULES_PATH):
     """
-    处理CSV目录结构并转换为对应的Hyper文件结构
+    Process CSV directory structure and convert to corresponding Hyper file structure
     
-    参数:
-        rules_path: 日期字段规则JSON文件的路径
+    Args:
+        rules_path: Path to JSON file with date field rules
         
-    返回:
-        生成的Hyper文件路径列表
+    Returns:
+        List of generated Hyper file paths
     """
-    # 确保主要输出目录存在
+    # Ensure output directory exists
     HYPER_ROOT_DIR.mkdir(parents=True, exist_ok=True)
     
-    # 清理输出目录
+    # Clean output directories
     for folder in SUBFOLDERS:
         folder_path = HYPER_ROOT_DIR / folder
         if folder_path.exists():
@@ -67,87 +98,91 @@ def process_csv_directory(rules_path=RULES_PATH):
                 elif item.is_dir():
                     shutil.rmtree(item)
     
-    # 加载日期字段规则
+    # Load date field rules
     rules = {}
     if Path(rules_path).exists():
         with open(rules_path, 'r') as f:
             rules = json.load(f)
     
     results = []
+    conversion_messages = []
     
-    # 处理所有子目录
+    # Collect all CSV files to process
+    all_csv_files = []
+    
     for folder in SUBFOLDERS:
         csv_folder = CSV_ROOT_DIR / folder
         hyper_folder = HYPER_ROOT_DIR / folder
         
         if not csv_folder.exists():
-            print(f"文件夹不存在: {csv_folder}")
+            print(f"Folder does not exist: {csv_folder}")
             continue
         
-        # 创建对应的hyper输出目录
+        # Create output directory
         hyper_folder.mkdir(parents=True, exist_ok=True)
         
-        # 处理文件夹中的所有CSV文件
-        for csv_file in csv_folder.glob("*.csv"):
+        # Collect CSV files
+        csv_files = list(csv_folder.glob("*.csv"))
+        all_csv_files.extend([(csv_file, hyper_folder / f"{csv_file.stem}.hyper", folder) for csv_file in csv_files])
+    
+    # Create logs directory if it doesn't exist
+    logs_dir = Path("tableau_processor")
+    logs_dir.mkdir(exist_ok=True)
+    
+    # Start a single Hyper process for all files with custom log directory
+    with HyperProcess(telemetry=False, parameters={"log_dir": str(logs_dir)}) as hyper:
+        # Process all files with progress bar
+        for csv_file, hyper_file, folder in tqdm(all_csv_files, desc="Converting CSV to Hyper"):
             file_name = csv_file.stem
-            hyper_file = hyper_folder / f"{file_name}.hyper"
             
-            # 读取CSV文件
+            # Read CSV file
             df = pd.read_csv(csv_file)
             
-            # 处理每一列，检查是否需要转换为日期格式
-            for col in df.columns:
-                # 检查该列是否在规则中
-                for rule_col, folder_rules in rules.items():
-                    if col == rule_col and folder in folder_rules:
-                        # 检查文件名是否匹配规则中的模式
-                        should_convert = False
-                        for file_pattern in folder_rules[folder]:
-                            if file_pattern in file_name:
-                                should_convert = True
-                                break
-                        
-                        # 如果需要转换，将其转换为日期格式
-                        if should_convert:
-                            try:
-                                df[col] = pd.to_datetime(df[col])
-                                print(f"将列 {col} 转换为日期格式 (文件: {file_name})")
-                            except Exception as e:
-                                print(f"无法将字段 {col} 转换为日期: {e}")
+            # Find columns to convert to date format
+            date_columns, messages = find_date_columns_for_file(df, rules, folder, file_name)
+            conversion_messages.extend(messages)
             
-            # 确保输出目录存在
+            # Convert identified columns to date format at once
+            for col in date_columns:
+                try:
+                    df[col] = pd.to_datetime(df[col])
+                except Exception as e:
+                    conversion_messages.append(f"Could not convert column '{col}' to date: {e}")
+            
+            # Ensure output directory exists and remove existing file
             hyper_file = Path(hyper_file)
             hyper_file.parent.mkdir(parents=True, exist_ok=True)
-            
-            # 如果文件已存在则删除
             if hyper_file.exists() and hyper_file.is_file():
                 os.remove(hyper_file)
             
-            # 创建表定义
-            columns = []
-            for column_name, dtype in df.dtypes.items():
-                columns.append(convert_datatype_to_hyper_type(column_name, df[column_name], dtype))
-            
+            # Create table definition
+            columns = [convert_datatype_to_hyper_type(col_name, dtype) for col_name, dtype in df.dtypes.items()]
             table_def = TableDefinition("Extract.Extract", columns)
             
-            # 创建Hyper文件并写入数据
-            with HyperProcess(telemetry=False) as hyper:
-                with Connection(hyper.endpoint, hyper_file, CreateMode.CREATE_AND_REPLACE) as connection:
-                    connection.catalog.create_schema("Extract")
-                    connection.catalog.create_table(table_def)
+            # Create and populate Hyper file
+            with Connection(hyper.endpoint, hyper_file, CreateMode.CREATE_AND_REPLACE) as connection:
+                connection.catalog.create_schema("Extract")
+                connection.catalog.create_table(table_def)
+                
+                with Inserter(connection, "Extract.Extract") as inserter:
+                    # Prepare all rows as a batch
+                    rows_to_insert = []
+                    for _, row in df.iterrows():
+                        rows_to_insert.append([row[col] if pd.notna(row[col]) else None for col in df.columns])
                     
-                    with Inserter(connection, "Extract.Extract") as inserter:
-                        for _, row in df.iterrows():
-                            inserter.add_row([row[col] if pd.notna(row[col]) else None for col in df.columns])
+                    # Batch insert all rows at once
+                    inserter.add_rows(rows_to_insert)
             
             results.append(hyper_file)
-            print(f"已生成: {hyper_file}")
     
-    print(f"转换完成，共生成 {len(results)} 个 Hyper 文件")
+    # Print date conversion messages at the end
+    for message in conversion_messages:
+        print(message)
+    
     return results
 
 
 if __name__ == "__main__":
-    # 调用主函数处理所有CSV文件
+    # Process all CSV files
     results = process_csv_directory()
-    print(f"生成的文件总数: {len(results)}")
+    print(f"Total files generated: {len(results)}")

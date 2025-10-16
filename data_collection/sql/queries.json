@@ -38,8 +38,7 @@
                     "name": "App Annie App Ratings",
                     "template": "appannie_app_ratings.sql",
                     "legacy": false,
-                    "filename_pattern": "yyyymm_appannie_app_ratings",
-                    "note": "Replace this query with the actual query from Google Sheets"
+                    "filename_pattern": "yyyymm_appannie_app_ratings"
                 },
                 {
                     "name": "Downstream Company 100k",

@@ -96,12 +96,13 @@ def move_and_generate_metadata(base_path=None):
                     
                     # Generate metadata
                     caption = os.path.splitext(filename)[0]
+                    file_key = caption[7:]
                     federated_name = generate_federated_name(filename)
                     textscan_name = generate_textscan_name(filename)
                     object_id = generate_object_id(filename)
                     
                     # Store metadata
-                    task_metadata[caption] = {
+                    task_metadata[file_key] = {
                         "caption": caption,
                         "federated_name": federated_name,
                         "textscan_name": textscan_name,

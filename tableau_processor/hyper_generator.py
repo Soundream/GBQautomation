@@ -18,7 +18,8 @@ from tableauhyperapi import HyperProcess, Connection, SqlType, TableDefinition, 
 # Global constants for directory structure
 CSV_ROOT_DIR = Path("output/csv")
 HYPER_ROOT_DIR = Path("output/hyper")
-SUBFOLDERS = ["key_brands", "market_share", "shopcash"]
+# SUBFOLDERS = ["key_brands", "market_share", "shopcash"]
+SUBFOLDERS = ["shopcash"]
 RULES_PATH = "tableau_processor/date_rules.json"
 
 

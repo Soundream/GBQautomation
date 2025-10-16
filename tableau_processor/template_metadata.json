@@ -1,0 +1,134 @@
+{
+  "shopcash": {
+    "appannie_tableau_report": {
+      "caption": "202509_appannie_tableau_report",
+      "federated_name": "federated.06itw4t0guh3vc1cz2weq098r3z7",
+      "textscan_name": "textscan.05fctg70wbcezu1apxhgq0o3tbry",
+      "object_id": "[202509_appannie_tableau_report.csv_A6BDB81ADAB74C74A1285F44CC808D5B]",
+      "twb_file": "Ecommerce Key Markets Report, 2025-07.twb"
+    },
+    "similarweb_tableau_report": {
+      "caption": "202509_similarweb_tableau_report",
+      "federated_name": "federated.0sy5wcx0c3t24918n8vhg0bgme8w",
+      "textscan_name": "textscan.15uwmcp1m2nomn1ejr6ww1ii4ipz",
+      "object_id": "[202509_similarweb_tableau_report.csv_DA1D396657E0463687C8EB65239C05AB]",
+      "twb_file": "Ecommerce Key Markets Report, 2025-07.twb"
+    },
+    "appannie_apps_usage_tableau_report": {
+      "caption": "202509_appannie_apps_usage_tableau_report",
+      "federated_name": "federated.14xdyrv0qrvssq1h6hbjn07sublj",
+      "textscan_name": "textscan.00cfdkt0n1w7dc11wt4iw0xszz2z",
+      "object_id": "[202509_appannie_apps_usage_tableau_report.csv_9E8A1758EEF247B79CBFFF584F9F8679]",
+      "twb_file": "Ecommerce Key Markets Report, 2025-07.twb"
+    },
+    "appannie_ranking_tableau_report": {
+      "caption": "202509_appannie_ranking_tableau_report",
+      "federated_name": "federated.1n0iq0h1q2373d13d768q0ly34w8",
+      "textscan_name": "textscan.076ahqx0spx6bg10wo04b0n2dhmz",
+      "object_id": "[202509_appannie_ranking_tableau_report.csv_17B25704EFDB4087BEAE3CC54968DEED]",
+      "twb_file": "Ecommerce Key Markets Report, 2025-07.twb"
+    }
+  },
+  "market_share": {
+    "appannie_ranking": {
+      "caption": "202509_appannie_ranking",
+      "federated_name": "federated.0v9gs220f0dkfx1a8ez4z1qcm10p",
+      "textscan_name": "textscan.14x9iwh0y8rcns1ahzy6o05yb8ra",
+      "object_id": "[202509_appannie_ranking.csv_98E7E6FA6B9A425A967BECD589A7D60E]",
+      "twb_file": "Online Travel Market Share Report, 2025-07.twb"
+    },
+    "appannie": {
+      "caption": "202509_appannie",
+      "federated_name": "federated.1dzuxpy0vv8bl21e6n16x1xjqb4s",
+      "textscan_name": "textscan.0ocwwpn19u0ses111x7ig1wtfjso",
+      "object_id": "[202509_appannie_ranking.csv_98E7E6FA6B9A425A967BECD589A7D60E]",
+      "twb_file": "Online Travel Market Share Report, 2025-07.twb"
+    },
+    "similarweb": {
+      "caption": "202509_similarweb",
+      "federated_name": "federated.1utv62q12x1mju0zqsjie1oz4zc1",
+      "textscan_name": "textscan.1qeoxqa0cj6i7318ozm7c19ro2yf",
+      "object_id": "[202509_similarweb.csv_A1C035AD6A024468BDA1159F6E31A588]",
+      "twb_file": "Online Travel Market Share Report, 2025-07.twb"
+    }
+  },
+  "key_brands": {
+    "web_visits_line_chart": {
+      "caption": "202508_web_visits_line_chart",
+      "federated_name": "federated.02ftskx0q5g5y51aiizsb170k8jv",
+      "textscan_name": "textscan.1xy8567026wmbb14n5sok04w3a2b",
+      "object_id": "[202508_web_visits_line_chart.csv_6F686867BF534E66B39C2640D381141F]",
+      "twb_file": "Online Travel Brands Report, 2025-06 (1).twb"
+    },
+    "appannie_tableau_report": {
+      "caption": "202508_appannie_tableau_report",
+      "federated_name": "federated.06agsjn17n0ew91fnd25k065ge03",
+      "textscan_name": "textscan.0hiqtxd18rl9al1d66mbl0xesg0y",
+      "object_id": "[202508_appannie_tableau_report.csv_725B71EAB0DE4298868596FFFC4B0E03]",
+      "twb_file": "Online Travel Brands Report, 2025-06 (1).twb"
+    },
+    "downstream_monthly": {
+      "caption": "202508_downstream_monthly",
+      "federated_name": "federated.0ciuj261bvm1me1baxu060unxg8r",
+      "textscan_name": "textscan.0aq8rou13ltljl10b3efe1fa1in2",
+      "object_id": "[202508_downstream_monthly.csv_D60DF435D3604DC6831DC9B37CE3192D]",
+      "twb_file": "Online Travel Brands Report, 2025-06 (1).twb"
+    },
+    "downstream_company_100k": {
+      "caption": "202508_downstream_company_100k",
+      "federated_name": "federated.0dxjgeh1jjifeu1d04l8z0mz1vc3",
+      "textscan_name": "textscan.1x9i5qm1rh4hz7118cp2n19km78e",
+      "object_id": "[202508_downstream_company_100k.csv_23C23EC66F32448086C0A8ED1A4221F0]",
+      "twb_file": "Online Travel Brands Report, 2025-06 (1).twb"
+    },
+    "handoffs_line_chart": {
+      "caption": "202508_handoffs_line_chart",
+      "federated_name": "federated.0m8wjqq0qzoq0g19lp8vc0d5xb0r",
+      "textscan_name": "textscan.17gsbny1298t5715ueeaz15glxd2",
+      "object_id": "[202508_handoffs_line_chart.csv_3069EE42D88D45A3BE62C0FB751EF025]",
+      "twb_file": "Online Travel Brands Report, 2025-06 (1).twb"
+    },
+    "handoffs_table": {
+      "caption": "202508_handoffs_table",
+      "federated_name": "federated.0tiqrob0s8zl0u14rg71a1eo3we7",
+      "textscan_name": "textscan.11a6xuv1d2oqe616hpeex19c0pq9",
+      "object_id": "[202508_handoffs_table.csv_A815EF2878C244138B03AA36D7352A4D]",
+      "twb_file": "Online Travel Brands Report, 2025-06 (1).twb"
+    },
+    "similarweb_tableau_report": {
+      "caption": "202508_similarweb_tableau_report",
+      "federated_name": "federated.0uaqwtk1rt80bx16rb2ct0phcatu",
+      "textscan_name": "textscan.1ui7gks1loyog911e4mmw0d4pxmu",
+      "object_id": "[202508_similarweb_tableau_report.csv_2293631896E64280BDBA1EFE5916682F]",
+      "twb_file": "Online Travel Brands Report, 2025-06 (1).twb"
+    },
+    "app_downloads_line_chart": {
+      "caption": "202508_app_downloads_line_chart",
+      "federated_name": "federated.133a2h70v7b92z1e1wbf91xuc8ry",
+      "textscan_name": "textscan.0f5csc00x8tox6154qin709opftu",
+      "object_id": "[202508_app_downloads_line_chart.csv_DE3F664541204C1196EBCC897703AE67]",
+      "twb_file": "Online Travel Brands Report, 2025-06 (1).twb"
+    },
+    "appannie_app_ratings": {
+      "caption": "202508_appannie_app_ratings",
+      "federated_name": "federated.18712170h7nv9y1c0bkzb0po1i2k",
+      "textscan_name": "textscan.0qbjbed18x1wfe1d8i7wv09u9n3o",
+      "object_id": "[202508_appannie_app_ratings.csv_B40BAC1A78D84C27991F5F2AFA1BF871]",
+      "twb_file": "Online Travel Brands Report, 2025-06 (1).twb"
+    },
+    "web_traffic": {
+      "caption": "202508_web_traffic",
+      "federated_name": "federated.1d6mdpf0elqu6u12lnxli0gdm3mf",
+      "textscan_name": "textscan.0x4dejk01tptk11gl68q40gqvf7q",
+      "object_id": "[202508_web_traffic.csv_18531BB86284447EB51413793110056D]",
+      "twb_file": "Online Travel Brands Report, 2025-06 (1).twb"
+    },
+    "web_visits_dot_chart": {
+      "caption": "202508_web_visits_dot_chart",
+      "federated_name": "federated.1w69fw80f87vs81bb8k2l1kzimo7",
+      "textscan_name": "textscan.0aydt2g17gq73517u6r6z0erospg",
+      "object_id": "[202508_web_visits_dot_chart.csv_FDDD8285BE0D49D08FF1679FAC9C8D34]",
+      "twb_file": "Online Travel Brands Report, 2025-06 (1).twb"
+    }
+  }
+}

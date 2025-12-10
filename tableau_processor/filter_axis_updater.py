@@ -209,7 +209,8 @@ def _update_month_filters(view_elem: ET.Element, last3_months: List[str]) -> int
             if member_value_style == "hash":
                 new_mem.set("member", f"#{ym}-01#")
             else:
-                new_mem.set("member", f"&quot;{ym}&quot;")
+                # 直接写入双引号，ElementTree 会自动转义为 &quot;
+                new_mem.set("member", f'"{ym}"')
             container.append(new_mem)
 
         changed += 1

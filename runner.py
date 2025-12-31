@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-GBQautomation - Main Runner
+GBQautomation - Main Runner (In Progress)
 Main entry point for the Google BigQuery automation workflow.
 
 This script orchestrates the entire data collection process:

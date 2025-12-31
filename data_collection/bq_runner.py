@@ -13,8 +13,15 @@ import csv
 import json
 import shutil
 from datetime import datetime
-from pathlib import Path
 import os
+
+# Add project root to Python path to enable absolute imports
+# This allows the script to be run directly from any location
+from pathlib import Path
+import sys
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
+
 from google.cloud import bigquery
 from tqdm import tqdm
 

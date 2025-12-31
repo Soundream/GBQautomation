@@ -9,6 +9,13 @@
 
 from google.cloud import bigquery
 
+# Add project root to Python path to enable absolute imports
+# This allows the script to be run directly from any location
+from pathlib import Path
+import sys
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
+
 from auth_credential.auth import BigQueryAuth
 
 # Initialize authentication

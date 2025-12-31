@@ -1,8 +1,14 @@
 from __future__ import annotations
 
 import os
-from pathlib import Path
 from typing import Dict, List, Optional
+
+# Add project root to Python path to enable absolute imports
+# This allows the script to be run directly from any location
+from pathlib import Path
+import sys
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
 
 from tableau_processor.hyper_generator import process_csv_directory
 from tableau_processor.xml_metadata_extractor import scan_task_folders
